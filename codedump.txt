@@ -10,8 +10,7 @@ str3: .asciiz "Enter a key to search for: "
 strYes: .asciiz "Key found!"
 strNo: .asciiz "Key not found!"
 
-commaSpace: .asciiz " "
-newLine: .asciiz "\n"
+commaSpace: .asciiz ", "
 
 .text 
 
@@ -96,8 +95,10 @@ printList:
 	#a0 is the address of the array
 	#a1 is the size of the array
 	
-	move $t0, $a0 # moves address of array into s0
-	move $t1, $a1 # a1 = size of array. s1 used as i
+	move $s0, $a0 # moves address of array into s0
+	move $t1, $a1 # t1 = size of array. used as i
+	sll $t2, $t1, 2 # multiplies into words
+	add $t0, $t0, $s0 # adds the shifted amount to the address
 	
 	ploop:
 	beq $t1, $zero, pend # if i > 0 then loop
@@ -113,21 +114,20 @@ printList:
 	j printComma
 
 printComma:
-	la $t2, commaSpace
-	move $a0, $t2
+	la $t0, commaSpace
+	move $a0, $t0
 	li $v0, 4
 	syscall
 	
 	j ploop
 pend:
-	la $t2, newLine
-	move $a0, $t2
+	li $t0, 13 # newline
+	move $a0, $t0
 	li $v0, 4
-	syscall	
+	syscall		
 
-	lw $ra, 0($sp) #restore $ra
-	addi $sp, $sp 4
-	
+	la $ra, ($sp) #restore $ra
+	addi $sp, $sp, 4
 	jr $ra	
 
 #inSort takes in a list and it size as arguments. 
