@@ -149,6 +149,31 @@ inSort:
 	move $s1, $a1 # size of array
 	li $s2, 1 # sets i = 1
 	
+	arraycp:
+	la $t0, original_list
+	la $t1, sorted_list
+	addi $t6, $t6, 0 # iterator
+	# s1 is size
+	
+	arraycploop:
+	#addi $t7, $t6, 1 # iterator is done when one less than size
+	beq $s1, $t6, arraycpend
+	
+	lw $t2, ($t0)
+	sw $t2, ($t1)
+	
+	#iterates pointers and iterator
+	addi $t0, $t0, 4 
+	addi $t1, $t1, 4
+	addu $t6, $t6, 1
+	
+	j arraycploop
+	
+	arraycpend:
+	la $t1, sorted_list
+	move $s0, $t1
+	
+	
 	iloop:
 	beq $s2, $s1, iend # if i = arraySize then end
 	
@@ -165,38 +190,58 @@ inSort:
 		# break if array[j] > key
 		#addi $t0, $s4, 1 # t0 = j + 1
 		# TODO why... this should never be zero... I'm removing it: beq $t0, $zero, jend # if j = 0 then jend
-		move $a0, $s3
+		move $a0, $s3 # a0 = s3 = key = array[i]
 	
 		lw $t0, ($s0) # TODO 0
 		sll $t2, $s4, 2
 		add $t3, $t0, $t2 # t3 = array[j]
 		move $a1, $t3 #TODO 0, value of array[j] as argument 
-		jal stringlt
+		
+		
+		# a0 = key
+		# a1 = array[j]
+		# if key < array then v0 = 1
+		# if key > array then v0 = 0
+		jal stringlt 
 		
 		move $t0, $v0
 		beq $t0, $zero, jend #if true, end
-		addi $t1, $s4, 1 # if not, j++
-		beq $t1, $zero, jend #TODO THIS IS A DUPLICATE NOT SURE IF NEEDED if true, end
+		#addi $t1, $s4, 1 # if not, j++
+		beq $s4, $zero, jend #if j = 0, end
 		
-		move $t0, $s0 #TODO 0 #TODO TRY TO OPTIMIZE THE FUNCTION, WE'RE REPEATING CODE
+		
+		# nested loop begins!
+		
+		# c code:
+		# array[j+1] = array[j];
+		# j--
+		lw $t0, ($s0) #TODO 0 #TODO Try to optimize the function, we're repeating code
 		sll $t2, $s4, 2 
 		add $t3, $t0, $t2
-		lw $t4, 0($t3) #TODO 0 #TODO remove this comment, t4 is used for later
+		lw $t4, 0($t3) # t4 = array[j]
 
-		move $t0, $s0
-		addi $t2, $s4, 1 # j++
+		addi $t2, $s4, 1 # t2 = j + 1
 		sll $t3, $t2, 2
-		add $t1, $t3, $t0 # TODO rewrite comment "gets address from data"
-		lw $t4, 0($t1) # array[j] = array[j+1] #C1
-		
+		add $t1, $t3, $s0 # address of array[j+1]
+		sw $t4, 0($t1) # array[j+1] = array[j]
 		addi $s4, $s4, -1 # j--
+		
 		j jloop
 		
 		jend:
-		move $t0, $s0
-		sll $t2, $s4, 2
-		add $t1, $t4, $t0
-		lw $s3, 0($t1) #TODO 0 #s3 = array[j+1] #C1
+		#move $t0, $s0
+		#sll $t2, $s4, 2
+		#add $t1, $t4, $t0
+		#lw $s3, 0($t1) #TODO 0 #s3 = array[j+1] #C1
+		
+		#array[j+1] = key
+		move $t0, $s4
+		sll $t2, $t0, 2
+		add $t1, $s0, $t2
+		
+		sw $s3, ($t1)
+		
+		
 		addi $s2, $s2, 1 #i++
 		j iloop
 	iend:
@@ -208,6 +253,9 @@ inSort:
 	lw $s4, 28($sp)
 	addi $sp, $sp, 32
 	
+	
+	
+	
 	la $v0, sorted_list # returns the address of the sorted array
 	jr $ra
 
@@ -217,36 +265,36 @@ inSort:
 #string less than function: returns true if less than, false if greater than
 stringlt: 
 
-	move $t0, $a0
-	move $t1, $a1
+	move $t0, $a0 # t0 = a0 = s3 = key = array[i]
+	move $t1, $a1 # array [j]
 
 
 	sltloop:
-	lb $t2, 0($t0) #TODO lb vs lw and 0($t0)
-	lb $t3, 0($t1)
-
+	#lb $t2, ($t0) #TODO lb vs lw and 0($t0)
+	#lb $t3, ($t1)
 	
-	and $t4, $t2, $t3 # checks if null terminator
-	beq $t4, $zero, stringend
+	#and $t4, $t2, $t3 # checks if null terminator
+	#beq $t4, $zero, stringend
+	
 	blt $t2, $t3, iflt # jumps to less than if t0 < t1
 	bgt $t2, $t3, ifgt # jumps to greater than if t0 > t1
-	addi $t0, $t0, 1 # increments t0
-	addi $t1, $t1, 1 # increments t0
-	j sltloop
 	
+	#don't know why'd we do this, so I'm removing it
+	#addi $t0, $t0, 1 # increments t0
+	#addi $t1, $t1, 1 # increments t0
+	j sltloop
 	
 	stringend:
 	beq $t2, $zero, iflt # checks if x = 0
 	j ifgt # returns false
-
-	ifgt: # returns false
-	li $v0, 0
-	j sltend
-
+	
 	iflt: # returns true
 	li $v0, 1
 	j sltend	
-
+	
+	ifgt: # returns false
+	li $v0, 0
+	j sltend
 
 	sltend:
 	jr $ra
