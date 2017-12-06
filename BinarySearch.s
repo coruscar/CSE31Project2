@@ -147,7 +147,7 @@ inSort:
 	#TODO FIX THIS TO MAKE IT WORK WITH ARGUEMENTS WRONG move $s0, $a0
 	move $s0, $s1 # address of original array
 	move $s1, $a1 # size of array
-	addi $s2, $s2, 1 # sets i = 1
+	addi $s2, $zero, 1 # sets i = 1
 	
 		arraycp:
 		la $t0, original_list
@@ -311,5 +311,15 @@ stringlt:
 bSearch:
 	#Your implementation of bSearch here
 	
-	jr $ra
+	move $s0, $a0 # address sorted list
+	move $s1, $a1 # size
+	move $s2, $a2 # search key
 	
+	
+	
+	
+	btrue:
+	addi $v0, $v0, 1
+	jr $ra
+	bfalse:
+	jr $ra
