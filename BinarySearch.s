@@ -141,7 +141,7 @@ inSort:
 	sw $s1, 16($sp)
 	sw $s2, 20($sp)
 	sw $s3, 24($sp)
-	sw $s4, 28($sp) #TODO fix potential overwrite breaks 
+	sw $s4, 28($sp) #TODO fix potential overwriting 
 	
 	#init
 	#TODO FIX THIS TO MAKE IT WORK WITH ARGUEMENTS WRONG move $s0, $a0
@@ -165,7 +165,7 @@ inSort:
 	#iterates pointers and iterator
 	addi $t0, $t0, 4 
 	addi $t1, $t1, 4
-	addu $t6, $t6, 1
+	addi $t6, $t6, 1
 	
 	j arraycploop
 	
@@ -192,7 +192,7 @@ inSort:
 		# TODO why... this should never be zero... I'm removing it: beq $t0, $zero, jend # if j = 0 then jend
 		move $a0, $s3 # a0 = s3 = key = array[i]
 	
-		lw $t0, ($s0) # TODO 0
+		la $t0, ($s0) # TODO 0
 		sll $t2, $s4, 2
 		add $t3, $t0, $t2 # t3 = array[j]
 		move $a1, $t3 #TODO 0, value of array[j] as argument 
@@ -215,7 +215,7 @@ inSort:
 		# c code:
 		# array[j+1] = array[j];
 		# j--
-		lw $t0, ($s0) #TODO 0 #TODO Try to optimize the function, we're repeating code
+		la $t0, ($s0) #TODO 0 #TODO Try to optimize the function, we're repeating code
 		sll $t2, $s4, 2 
 		add $t3, $t0, $t2
 		lw $t4, 0($t3) # t4 = array[j]
@@ -245,6 +245,9 @@ inSort:
 		addi $s2, $s2, 1 #i++
 		j iloop
 	iend:
+	# restores a1
+	move $a1, $s1
+	
 	lw $ra, 8($sp)
 	lw $s0, 12($sp)
 	lw $s1, 16($sp)
