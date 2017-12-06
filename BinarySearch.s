@@ -147,31 +147,31 @@ inSort:
 	#TODO FIX THIS TO MAKE IT WORK WITH ARGUEMENTS WRONG move $s0, $a0
 	move $s0, $s1 # address of original array
 	move $s1, $a1 # size of array
-	li $s2, 1 # sets i = 1
+	addi $s2, $s2, 1 # sets i = 1
 	
-	arraycp:
-	la $t0, original_list
-	la $t1, sorted_list
-	addi $t6, $t6, 0 # iterator
-	# s1 is size
+		arraycp:
+		la $t0, original_list
+		la $t1, sorted_list
+		addi $t6, $t6, 0 # iterator
+		# s1 is size
 	
-	arraycploop:
-	#addi $t7, $t6, 1 # iterator is done when one less than size
-	beq $s1, $t6, arraycpend
-	
-	lw $t2, ($t0)
-	sw $t2, ($t1)
-	
-	#iterates pointers and iterator
-	addi $t0, $t0, 4 
-	addi $t1, $t1, 4
-	addi $t6, $t6, 1
-	
-	j arraycploop
-	
-	arraycpend:
-	la $t1, sorted_list
-	move $s0, $t1
+		arraycploop:
+		#addi $t7, $t6, 1 # iterator is done when one less than size
+		beq $s1, $t6, arraycpend
+		
+		lw $t2, ($t0)
+		sw $t2, ($t1)
+		
+		#iterates pointers and iterator
+		addi $t0, $t0, 4 
+		addi $t1, $t1, 4
+		addi $t6, $t6, 1
+		
+		j arraycploop
+
+		arraycpend:
+		la $t1, sorted_list
+		move $s0, $t1
 	
 	
 	iloop:
@@ -195,8 +195,8 @@ inSort:
 		la $t0, ($s0) # TODO 0
 		sll $t2, $s4, 2
 		add $t3, $t0, $t2 # t3 = array[j]
-		move $a1, $t3 #TODO 0, value of array[j] as argument 
-		
+		#move $a1, $t3 #TODO 0, value of array[j] as argument 
+		lw $a1, ($t3)
 		
 		# a0 = key
 		# a1 = array[j]
@@ -236,6 +236,7 @@ inSort:
 		
 		#array[j+1] = key
 		move $t0, $s4
+		addi $t0, $t0, 1
 		sll $t2, $t0, 2
 		add $t1, $s0, $t2
 		
@@ -279,8 +280,8 @@ stringlt:
 	#and $t4, $t2, $t3 # checks if null terminator
 	#beq $t4, $zero, stringend
 	
-	blt $t2, $t3, iflt # jumps to less than if t0 < t1
-	bgt $t2, $t3, ifgt # jumps to greater than if t0 > t1
+	blt $t0, $t1, iflt # jumps to less than if t0 < t1
+	bgt $t0, $t1, ifgt # jumps to greater than if t0 > t1
 	
 	#don't know why'd we do this, so I'm removing it
 	#addi $t0, $t0, 1 # increments t0
