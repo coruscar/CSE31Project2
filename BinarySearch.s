@@ -281,7 +281,7 @@ stringlt:
 	#beq $t4, $zero, stringend
 	
 	blt $t0, $t1, iflt # jumps to less than if t0 < t1
-	bgt $t0, $t1, ifgt # jumps to greater than if t0 > t1
+	bge $t0, $t1, ifgt # jumps to greater than if t0 > t1
 	
 	#don't know why'd we do this, so I'm removing it
 	#addi $t0, $t0, 1 # increments t0
@@ -349,6 +349,7 @@ bSearch:
 	#blt $t1, $s2, bslt # jumps to less than if t0 < t1
 	add $a3, $s5, $s3
 	j bSearch
+	
 	
 	bsgt:
 	sub $a1, $s5, $s3
