@@ -207,7 +207,7 @@ inSort:
 		move $t0, $v0
 		beq $t0, $zero, jend #if true, end
 		#addi $t1, $s4, 1 # if not, j++
-		beq $s4, $zero, jend #if j = 0, end
+		#beq $s4, $zero, jend #if j = 0, end
 		
 		
 		# nested loop begins!
