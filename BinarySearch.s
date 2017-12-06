@@ -312,14 +312,54 @@ bSearch:
 	#Your implementation of bSearch here
 	
 	move $s0, $a0 # address sorted list
-	move $s1, $a1 # size
+	move $s1, $a1 # size/right
 	move $s2, $a2 # search key
+	move $s3, $a3 # left
+	li $s5, 0 # mid
+	
+	blt $s1, $s3, bfalse 
+	
+	# mid = l + (r - l)/2
+	sub $t0, $s1, $s3
+	div $t0, $t0, 2
+	add $s5, $s3, $t0
+	
+	# t1 = array[mid]
+	sll $t1, $s5, 2
+	add $t2, $s0, $t1
+	lw $t1, ($t2)
 	
 	
+	beq $t1, $s2, btrue
+	
+	# hacky code if l == 0 and r == 0 false
+	li $t4, 0
+	li $t5, 0
+	
+	slti $t4, $a3, 1
+	slti $t5, $a1, 1
+	
+	add $t4, $t4, $t5
+	li $t5, 2
+	beq $t4, $t5, bfalse
+	
+	bgt $t1, $s2, bsgt # jumps to greater than if t0 > t1
+	
+	#commented because implicit
+	#blt $t1, $s2, bslt # jumps to less than if t0 < t1
+	add $a3, $s5, $s3
+	j bSearch
+	
+	bsgt:
+	sub $a1, $s5, $s3
+	j bSearch
+	
+	#bslt:
 	
 	
 	btrue:
-	addi $v0, $v0, 1
+	li $v0, 1
 	jr $ra
 	bfalse:
+	li $v0, 0
 	jr $ra
