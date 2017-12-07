@@ -363,7 +363,7 @@ bSearch:
 	j bSearch
 	
 	bslt:
-	addi $a3, $s5, -1
+	addi $a3, $s5, 1
 	j bSearch
 	
 	btrue:
