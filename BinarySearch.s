@@ -352,17 +352,19 @@ bSearch:
 	bgt $t1, $s2, bsgt # jumps to greater than if t0 > t1
 	
 	#commented because implicit
-	#blt $t1, $s2, bslt # jumps to less than if t0 < t1
-	add $a3, $s5, $s3
-	j bSearch
+	#maybe not
+	blt $t1, $s2, bslt # jumps to less than if t0 < t1
+	
+	
 	
 	
 	bsgt:
 	sub $a1, $s5, $s3
 	j bSearch
 	
-	#bslt:
-	
+	bslt:
+	addi $a3, $s5, -1
+	j bSearch
 	
 	btrue:
 	li $v0, 1
