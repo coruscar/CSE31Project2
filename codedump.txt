@@ -5,8 +5,26 @@ What's the difference between these two instructions?
 		move $t0, $s0
 		la $t0, ($s0)
 
+		
+		
+		
+		
+	bgt $s3, $s1, rightcheck
+	nopegoback:
 
-
+	rightcheck:
+	#move $s0, $a0 # address sorted list
+	#move $s1, $a1 # size/right
+	#move $s2, $a2 # search key
+	#move $s3, $a3 # left
+		sll $t6, $s1, 2
+		add $t6, $s0, $t6
+		lw $t7, ($t6)
+		beq $a2, $t7, btrue
+		
+	j nopegoback
+		
+		
 
 
 .data 

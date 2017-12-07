@@ -317,6 +317,12 @@ bSearch:
 	move $s3, $a3 # left
 	li $s5, 0 # mid
 	
+	#keeping size in line
+	addi $s1, $s1, -1 # size/right
+	
+
+	bgt $s3, $s1, rightcheck
+	nopegoback:
 	blt $s1, $s3, bfalse 
 	
 	# mid = l + (r - l)/2
@@ -364,3 +370,16 @@ bSearch:
 	bfalse:
 	li $v0, 0
 	jr $ra
+
+	rightcheck:
+	#move $s0, $a0 # address sorted list
+	#move $s1, $a1 # size/right
+	#move $s2, $a2 # search key
+	#move $s3, $a3 # left
+		sll $t6, $s1, 2
+		add $t6, $s0, $t6
+		lw $t7, ($t6)
+		beq $a2, $t7, btrue
+		
+	j nopegoback
+	
