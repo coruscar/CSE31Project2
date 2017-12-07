@@ -76,11 +76,132 @@ test_case#2:
         Key not found!
         -- program is finished running --
 test_case#3:
-        
+        Enter size of list (between 1 and 25): 10
+        Enter one list element:
+        4
+        Enter one list element:
+        2
+        Enter one list element:
+        28
+        Enter one list element:
+        3
+        Enter one list element:
+        4
+        Enter one list element:
+        6
+        Enter one list element:
+        1
+        Enter one list element:
+        3
+        Enter one list element:
+        4
+        Enter one list element:
+        5
+        Content of list: 4 2 28 3 4 6 1 3 4 5
+        Content of list: 1 2 3 3 4 4 4 5 6 28
+        Enter a key to search for: 5
+        Key found!
+        -- program is finished running --
 test_case#4:
+        Enter size of list (between 1 and 25): 15
+        Enter one list element:
+        4
+        Enter one list element:
+        39
+        Enter one list element:
+        45
+        Enter one list element:
+        23
+        Enter one list element:
+        75
+        Enter one list element:
+        23
+        Enter one list element:
+        57
+        Enter one list element:
+        34
+        Enter one list element:
+        67
+        Enter one list element:
+        45
+        Enter one list element:
+        34
+        Enter one list element:
+        24
+        Enter one list element:
+        87
+        Enter one list element:
+        54
+        Enter one list element:
+        34
+        Content of list: 4 39 45 23 75 23 57 34 67 45 34 24 87 54 34
+        Content of list: 4 23 23 24 34 34 34 39 45 45 54 57 67 75 87
+        Enter a key to search for: 75
+        Key not found!
+        -- program is finished running --
 test_case#5:
+        Enter size of list (between 1 and 25): 7
+        Enter one list element:
+        3947
+        Enter one list element:
+        2936
+        Enter one list element:
+        2384
+        Enter one list element:
+        8372
+        Enter one list element:
+        7653
+        Enter one list element:
+        3257
+        Enter one list element:
+        3245
+        Content of list: 3947 2936 2384 8372 7653 3257 3245
+        Content of list: 2384 2936 3245 3257 3947 7653 8372
+        Enter a key to search for: 4
+        Key not found!
+        -- program is finished running --
 test_case#6:
+        Enter size of list (between 1 and 25): 8
+        Enter one list element:
+        89763
+        Enter one list element:
+        34266
+        Enter one list element:
+        34267
+        Enter one list element:
+        32468
+        Enter one list element:
+        23758
+        Enter one list element:
+        25477
+        Enter one list element:
+        2578
+        Enter one list element:
+        24576
+        Content of list: 89763 34266 34267 32468 23758 25477 2578 24576
+        Content of list: 2578 23758 24576 25477 32468 34266 34267 89763
+        Enter a key to search for: 24576
+        Key found!
+        -- program is finished running --
 test_case#7:
+        Enter size of list (between 1 and 25): 5
+        Enter one list element:
+        786243
+        Enter one list element: 
+        31476
+        Enter one list element:
+        3146980
+        Enter one list element:
+        8932465
+        Enter one list element:
+        9184635
+        Content of list: 786243 31476 3146980 8932465 9184635
+        Content of list: 31476 786243 3146980 8932465 9184635
+        Enter a key to search for: 31476
+        Key found!
+        -- program is finished running --
 test_case#8:
+
 test_case#9:
+
 test_case#10:
