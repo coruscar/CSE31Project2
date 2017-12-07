@@ -1,4 +1,6 @@
 .data 
+#Jonathan Chancey and Adrian Darian
+#CSE31Project2
 
 original_list: .space 100 
 sorted_list: .space 100
@@ -25,9 +27,9 @@ newLine: .asciiz "\n"
 main: 
 	addi $sp, $sp -8
 	sw $ra, 0($sp)
-	li $v0, 4 
+	li $v0, 4  
 	la $a0, str0 
-	syscall 
+	syscall
 	li $v0, 5	#Read size of list from user
 	syscall
 	move $s0, $v0
