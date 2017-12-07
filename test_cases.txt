@@ -257,3 +257,45 @@ test_case#10:
         Enter a key to search for: 4
         Key not found!
         -- program is finished running --
+		
+		
+		
+test_case#11:
+		Enter size of list (between 1 and 25): 6
+		Enter one list element: 
+		6
+		Enter one list element: 
+		5
+		Enter one list element: 
+		4
+		Enter one list element: 
+		3
+		Enter one list element: 
+		2
+		Enter one list element: 
+		1
+		Content of list: 6 5 4 3 2 1
+		Content of list: 1 2 3 4 5 6
+		Enter a key to search for: 6
+		Key found!
+		-- program is finished running --
+
+test_case#12:
+		Enter size of list (between 1 and 25): 6
+		Enter one list element: 
+		6
+		Enter one list element: 
+		5
+		Enter one list element: 
+		4
+		Enter one list element: 
+		3
+		Enter one list element: 
+		2
+		Enter one list element: 
+		1
+		Content of list: 6 5 4 3 2 1
+		Content of list: 1 2 3 4 5 6
+		Enter a key to search for: 7
+		Key not found!
+		-- program is finished running --
