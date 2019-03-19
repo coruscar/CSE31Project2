@@ -1,4 +1,4 @@
-# CSE31Project2
+# CSE-031 Project 2
 Fall 2017, CSE-031 Computer Organization
 
 ### Implemented Functions
@@ -14,4 +14,4 @@ list, its size, and a search key as arguments. It returns 1 if the key exists in
 the list, otherwise it returns 0. You must implement this algorithm recursively;
 therefore, be aware of the use of stack memory.
 
-[Test Cases](https://gist.github.com/jonathanchancey/538b0ac19aa96d24a33bf1ce4b6392cb)
+### [Test Cases](https://gist.github.com/jonathanchancey/538b0ac19aa96d24a33bf1ce4b6392cb)
